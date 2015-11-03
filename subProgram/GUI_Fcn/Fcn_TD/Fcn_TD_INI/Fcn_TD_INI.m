@@ -4,7 +4,7 @@ global CI
 % The sampling frequency and the raw time ends,
 % and ...
 % first created: 2014-11-12
-% last edited: 2014-11-27
+% last modified 2015-11-03 by Erwan Rollan(eor21@cam.ac.uk)
 %
 % -------------------------------------------------------------------------
 % check input 
@@ -43,6 +43,10 @@ Fcn_TD_INI_constant_variables                                               % pr
 %
 Fcn_TD_INI_external_forcing(ExtForceInfo)                                   % external forcing from a loudspeaker mounted to the combustor wall
 %
+Fcn_TD_INI_EWG                                                             % EWG time-domain behaviour
+%
+Fcn_TD_INI_CN                                                             % Compact Nozzle time-domain behaviour
+
 assignin('base','CI',CI);
 %
 % ------------------------ end --------------------------------------------

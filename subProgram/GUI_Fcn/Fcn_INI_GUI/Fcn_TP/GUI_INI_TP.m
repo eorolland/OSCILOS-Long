@@ -22,7 +22,7 @@ function varargout = GUI_INI_TP(varargin)
 
 % Edit the above text to modify the response to help GUI_INI_TP
 
-% Last Modified by GUIDE v2.5 09-Feb-2015 14:10:12
+% last modified 2015-11-03 by Erwan Rollan(eor21@cam.ac.uk)
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -547,7 +547,113 @@ set(handles.edit_DT_SN,...
                         'backgroundcolor',handles.bgcolor{1},...
                         'horizontalalignment','right',...
                         'enable','off');
-%----------------------------------------
+%---------------------------------------- 
+% pannel Entropy Wave Generator configuration
+set(handles.uipanel_EWG_Config,...
+                        'units', 'points',...
+                        'Fontunits','points',...
+                        'position',[FigW*0.5/20 FigH*1.75/20 FigW*19/20 FigH*6/20],...
+                        'Title','',...
+                        'visible','on',...
+                        'highlightcolor',handles.bgcolor{3},...
+                        'borderwidth',1,...
+                        'fontsize',handles.FontSize(2),...
+                        'backgroundcolor',handles.bgcolor{3});  
+pannelsize=get(handles.uipanel_EWG_Config,'position');
+pW=pannelsize(3);
+pH=pannelsize(4);  
+% row 1  
+set(handles.text_EWG_type,...
+                        'units', 'points',...
+                        'Fontunits','points',...
+                        'position',[pW*0.5/10 pH*7/10 pW*1.5/10 pH*1.25/10],...
+                        'fontsize',handles.FontSize(2),...
+                        'string','Perturbation Type:',...
+                        'backgroundcolor',handles.bgcolor{3},...
+                        'horizontalalignment','left'); 
+set(handles.pop_EWG_type,...
+                        'units', 'points',...
+                        'Fontunits','points',...
+                        'position',[pW*2.5/10 pH*7/10 pW*1.5/10 pH*1.25/10],...
+                        'fontsize',handles.FontSize(2),...
+                        'string',{'Pulse', 'Sinusoidal'},...
+                        'backgroundcolor',handles.bgcolor{1},...
+                        'horizontalalignment','left',...
+                        'enable','on');
+
+set(handles.text_EWG_start_time,...
+                        'units', 'points',...
+                        'Fontunits','points',...
+                        'position',[pW*5.5/10 pH*7/10 pW*1.5/10 pH*1.25/10],...
+                        'fontsize',handles.FontSize(2),...
+                        'string','Start Time [s]:',...
+                        'backgroundcolor',handles.bgcolor{3},...
+                        'horizontalalignment','left'); 
+set(handles.edit_EWG_start_time,...
+                        'units', 'points',...
+                        'Fontunits','points',...
+                        'position',[pW*8.25/10 pH*7/10 pW*1.5/10 pH*1.25/10],...
+                        'fontsize',handles.FontSize(2),...
+                        'string',0.1,...
+                        'backgroundcolor',handles.bgcolor{1},...
+                        'horizontalalignment','right',...
+                        'enable','on');     
+set(handles.text_EWG_amp,...
+                        'units', 'points',...
+                        'Fontunits','points',...
+                        'position',[pW*0.5/10 pH*4/10 pW*1.5/10 pH*1.25/10],...
+                        'fontsize',handles.FontSize(2),...
+                        'string','Amplitude [K]:',...
+                        'backgroundcolor',handles.bgcolor{3},...
+                        'horizontalalignment','left'); 
+set(handles.edit_EWG_amp,...
+                        'units', 'points',...
+                        'Fontunits','points',...
+                        'position',[pW*2.5/10 pH*4/10 pW*1.5/10 pH*1.25/10],...
+                        'fontsize',handles.FontSize(2),...
+                        'string',13.5,...
+                        'backgroundcolor',handles.bgcolor{1},...
+                        'horizontalalignment','right',...
+                        'enable','on');                      
+                    
+% row 2  
+set(handles.text_EWG_tau,...
+                        'units', 'points',...
+                        'Fontunits','points',...
+                        'position',[pW*5.5/10 pH*4/10 pW*3/10 pH*1.25/10],...
+                        'fontsize',handles.FontSize(2),...
+                        'string','Characteristic Time Constant [s]:',...
+                        'backgroundcolor',handles.bgcolor{3},...
+                        'horizontalalignment','left');
+set(handles.edit_EWG_tau,...
+                        'units', 'points',...
+                        'Fontunits','points',...
+                        'position',[pW*8.25/10 pH*4/10 pW*1.5/10 pH*1.25/10],...
+                        'fontsize',handles.FontSize(2),...
+                        'string',0.007,...
+                        'backgroundcolor',handles.bgcolor{1},...
+                        'horizontalalignment','right',...
+                        'enable','on');
+set(handles.text_EWG_ON_time,...
+                        'units', 'points',...
+                        'Fontunits','points',...
+                        'position',[pW*5.5/10 pH*1.5/10 pW*3.0/10 pH*1.25/10],...
+                        'fontsize',handles.FontSize(2),...
+                        'string','"ON" Time [s]:',...
+                        'backgroundcolor',handles.bgcolor{3},...
+                        'horizontalalignment','left',...
+                        'visible', 'on');
+set(handles.edit_EWG_ON_time,...
+                        'units', 'points',...
+                        'Fontunits','points',...
+                        'position',[pW*8.25/10 pH*1.5/10 pW*1.5/10 pH*1.25/10],...
+                        'fontsize',handles.FontSize(2),...
+                        'string',0.1,...
+                        'backgroundcolor',handles.bgcolor{1},...
+                        'horizontalalignment','right',...
+                        'enable','on',...
+                        'visible', 'on');                                 
+%---------------------------------------- 
 % pannel Apply OK Cancel                   
 set(handles.uipanel_OK,...
                         'units', 'points',...
@@ -1095,13 +1201,25 @@ guidata(hObject, handles);
 hMsg = msgbox('The calculation may take several seconds, please wait!','Calculation...');
 %
 hChildren       = get(hMsg,'children');
-set(hChildren(2),       'units', 'points',...
+% ok is changed to children(1) 
+Vcur = version('-release')
+if strcmp(Vcur,'2015a') == 1 || strcmp(Vcur,'2014b') == 1
+    set(hChildren(1),       'units', 'points',...
+                            'Fontunits','points',...
+                            'fontsize',handles.FontSize(2),...
+                            'string','OK',...
+                            'backgroundcolor',handles.bgcolor{3},...
+                            'visible','off',...
+                            'enable','off')
+elseif strcmp(version,'2014a') == 1 || strcmp(version,'2013b') == 1
+    set(hChildren(2),       'units', 'points',...
                         'Fontunits','points',...
                         'fontsize',handles.FontSize(2),...
                         'string','OK',...
                         'backgroundcolor',handles.bgcolor{3},...
                         'visible','off',...
                         'enable','off')
+end                   
 %
 pause(1)                % paus 1 second
 delete(hMsg)
@@ -1110,6 +1228,7 @@ HA_num      = get(handles.pop_HA_num,'value');  % get the order of current HA
 Fcn_GUI_INI_TP_HA_UI2Para(hObject,HA_num)       % update HA parameters by the values from UI
 %---------------------Main calculation ------------------------------------
 Fcn_GUI_INI_TP_Main_calculation(hObject)
+Fcn_GUI_INI_TP_EWG_calculation(hObject)
 set(handles.pb_Cal,             'enable','on');
 set(handles.pb_Plot,            'enable','on');
 set(handles.pb_saveFig,         'enable','on');
@@ -1193,6 +1312,236 @@ function pop_gamma_CreateFcn(hObject, eventdata, handles)
 % handles    empty - handles not created until after all CreateFcns called
 
 % Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function edit17_Callback(hObject, eventdata, handles)
+% hObject    handle to edit17 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit17 as text
+%        str2double(get(hObject,'String')) returns contents of edit17 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit17_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit17 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on selection change in popupmenu9.
+function popupmenu9_Callback(hObject, eventdata, handles)
+% hObject    handle to popupmenu9 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns popupmenu9 contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from popupmenu9
+
+
+% --- Executes during object creation, after setting all properties.
+function popupmenu9_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to popupmenu9 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function edit18_Callback(hObject, eventdata, handles)
+% hObject    handle to edit18 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit18 as text
+%        str2double(get(hObject,'String')) returns contents of edit18 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit18_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit18 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function edit19_Callback(hObject, eventdata, handles)
+% hObject    handle to edit19 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit19 as text
+%        str2double(get(hObject,'String')) returns contents of edit19 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit19_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit19 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function edit_EWG_start_time_Callback(hObject, eventdata, handles)
+% hObject    handle to edit_EWG_start_time (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit_EWG_start_time as text
+%        str2double(get(hObject,'String')) returns contents of edit_EWG_start_time as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit_EWG_start_time_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit_EWG_start_time (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on selection change in pop_EWG_type.
+function pop_EWG_type_Callback(hObject, eventdata, handles)
+% hObject    handle to pop_EWG_type (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns pop_EWG_type contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from pop_EWG_type
+
+
+% --- Executes during object creation, after setting all properties.
+function pop_EWG_type_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to pop_EWG_type (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function edit_EWG_tau_Callback(hObject, eventdata, handles)
+% hObject    handle to edit_EWG_tau (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit_EWG_tau as text
+%        str2double(get(hObject,'String')) returns contents of edit_EWG_tau as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit_EWG_tau_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit_EWG_tau (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function edit22_Callback(hObject, eventdata, handles)
+% hObject    handle to edit22 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit22 as text
+%        str2double(get(hObject,'String')) returns contents of edit22 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit22_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit22 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function edit_EWG_ON_time_Callback(hObject, eventdata, handles)
+% hObject    handle to edit_EWG_ON_time (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit_EWG_ON_time as text
+%        str2double(get(hObject,'String')) returns contents of edit_EWG_ON_time as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit_EWG_ON_time_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit_EWG_ON_time (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function edit_EWG_amp_Callback(hObject, eventdata, handles)
+% hObject    handle to edit_EWG_amp (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit_EWG_amp as text
+%        str2double(get(hObject,'String')) returns contents of edit_EWG_amp as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit_EWG_amp_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit_EWG_amp (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
 %       See ISPC and COMPUTER.
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');

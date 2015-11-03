@@ -6,7 +6,7 @@ function Fcn_TD_calculation_one_gap(Var)
 %
 % author: Jingxuan LI (jingxuan.li@imperial.ac.uk)
 % first created:    2014-11-11
-% last edited:      2014-11-19
+% last modified 2015-11-03 by Erwan Rollan(eor21@cam.ac.uk)
 %
 % AP is the pressure wave propagating in the direction of flow
 % AM is the pressure wave propagating in the opposite direction of flow
@@ -20,13 +20,25 @@ global CI
 % --------------------- Left boundary -------------------------------------
 % -------------------------------------------------------------------------
 % A1+(t) = conv(R1,A1-(t-tau1-))
-CI.TD.AP(1, Var(1):Var(2))...
-    = Fcn_lsim_varied_td(   CI.TD.AM(1,:),...
-                            CI.TD.Green.sys{1},...
-                            CI.TD.Green.tauConv2(1),...
-                            Var,...
-                            CI.TP.tau_minus(1) + CI.BC.tau_d1,...
-                            CI.TD.dt);
+%  R1=CI.BC.num1/CI.BC.den1; % Reflection factor
+%  t=CI.TD.tSpTotal;
+%  delt=CI.TD.dt;
+%  ntotal=t/delt;
+%  mytgap=(Var(1):Var(2));
+%  mytaugap=mytgap-CI.TP.tau_minus(1)/delt;
+%  ntau=floor( CI.TP.tau_minus(1) / delt);
+% %  CI.TD.AP(1, Var(1):Var(2))=R1.*CI.TD.AM( 1, (Var(1)-ntau): (Var(2)-ntau));
+%    CI.TD.AP(1, Var(1):Var(2))=R1.*interp1(ntotal, CI.TD.AM(1,:), mytaugap);
+
+  CI.TD.AP(1, Var(1):Var(2))...
+      = Fcn_lsim_varied_td(   CI.TD.AM(1,:),...
+                              CI.TD.Green.sys{1},...
+                              CI.TD.Green.tauConv2(1),...
+                              Var,...
+                              CI.TP.tau_minus(1) + CI.BC.tau_d1,...
+                              CI.TD.dt);
+                        
+                        
 CI.TD.AP(1, Var(1):Var(2)) = CI.TD.AP(1, Var(1):Var(2)) + CI.TD.pNoiseBG(Var(1):Var(2)); % add additional noise to wave propagating in direction of flow
 if CI.TD.ExtForceInfo.indexPos == 1
     CI.TD.AP(1, Var(1):Var(2)) = CI.TD.AP(1, Var(1):Var(2)) + CI.TD.pExtForce(Var(1):Var(2));  % external driving;
@@ -41,7 +53,7 @@ indexHPTF_num = 0; % Initilise the index which counts the number of sections of 
 for ss = 1:CI.TP.numSection-1 
     y(1,1:CI.TD.nGap)   = Fcn_interp1_varied_td(CI.TD.AP(ss,:),    Var, CI.TP.tau_plus(ss),    CI.TD.dt);
     y(2,1:CI.TD.nGap)   = Fcn_interp1_varied_td(CI.TD.AM(ss+1,:),  Var, CI.TP.tau_minus(ss+1), CI.TD.dt);
-    y(3,1:CI.TD.nGap)  = 0; 
+    y(3,1:CI.TD.nGap)   = Fcn_interp1_varied_td(CI.TD.E(ss,:),     Var, CI.TP.tau_c(ss),       CI.TD.dt); %  Entropy
     if CI.TD.ExtForceInfo.indexPos == 2*ss % the loudspeaker is located at the left side of interface
         y(1,1:CI.TD.nGap) = y(1,1:CI.TD.nGap) + 0.5*CI.TD.pExtForce(Var(1):Var(2));
     end
@@ -56,6 +68,13 @@ for ss = 1:CI.TP.numSection-1
             %     [ E2  ]       [ E1  ]
             %
             x = CI.TD.IF.Z{ss}*y;
+            
+            
+        case 1 % Area change with compact subsonic nozzle
+               % Acoustic and entropic waves are reflected and transmitted
+               
+            run Script_TD_CN % This script calculates AP and AM due to the compact nozzle response
+            
             
         case 10   % Mean heat release. 
                   % The fluctuating pressure waves remain unaffected, but
@@ -113,22 +132,42 @@ for ss = 1:CI.TP.numSection-1
             if CI.TD.ExtForceInfo.indexPos == 2*ss+1 % the loudspeaker is located at the left side of interface
                 x(1,1:CI.TD.nGap) = x(1,1:CI.TD.nGap) + 0.5*CI.TD.pExtForce(Var(1):Var(2));
             end
+        case 12 % Entropy Wave Generator, no mean heat addition
+                % Acoustic and entropic waves are generated
+                
+            run Script_TD_EWG % This script calculates AP, AM and E due to an entropy wave generator
+            
     end
+    
+    
+    
     CI.TD.AP(ss+1,Var(1):Var(2)) = x(1,:);
     CI.TD.AM(ss  ,Var(1):Var(2)) = x(2,:);
+    CI.TD.E(ss+1  ,Var(1):Var(2)) = x(3,:);
+    
+    
+
+    
+    
 end
 % -------------------------------------------------------------------------
 % --------------------- Right boundary ------------------------------------
 % -------------------------------------------------------------------------
 % AN-(t) = conv(R2,AN+(t-tauN+))
 %
-CI.TD.AM(end, Var(1):Var(2))...
-        = Fcn_lsim_varied_td(   CI.TD.AP(end,:),...
-                                CI.TD.Green.sys{2},...
-                                CI.TD.Green.tauConv2(2),...
-                                Var,...
-                                CI.TP.tau_plus(end) + CI.BC.tau_d2,...
-                                CI.TD.dt);
+%  R2=CI.BC.num2/CI.BC.den2; % Reflection factor
+% % ntau=floor( CI.TP.tau_plus(end) / delt);
+%  mytaugap=mytgap-CI.TP.tau_plus(end)/delt;
+% % CI.TD.AM(end, Var(1):Var(2))=R2.*CI.TD.AP( end, (Var(1)-ntau): (Var(2)-ntau));
+%   CI.TD.AM(end, Var(1):Var(2)) =R2.*interp1(ntotal, CI.TD.AP(end,:), mytaugap);
+
+  CI.TD.AM(end, Var(1):Var(2))...
+          = Fcn_lsim_varied_td(   CI.TD.AP(end,:),...
+                                  CI.TD.Green.sys{2},...
+                                  CI.TD.Green.tauConv2(2),...
+                                  Var,...
+                                  CI.TP.tau_plus(end) + CI.BC.tau_d2,...
+                                  CI.TD.dt);
 CI.TD.AM(end, Var(1):Var(2)) = CI.TD.AM(end, Var(1):Var(2));% + CI.TD.pNoiseBG(Var(1):Var(2)); % add additional noise to wave propagating in direction of flow
 if CI.TD.ExtForceInfo.indexPos == 2*(length(CI.CD.x_sample) - 1)
     CI.TD.AM(end, Var(1):Var(2)) = CI.TD.AM(end, Var(1):Var(2))+ CI.TD.pExtForce(Var(1):Var(2));  % external driving;

@@ -210,6 +210,10 @@ for s = 1:length(CI.CD.SectionIndex)
             indexColor = 'k';
             indexLinestyle  = '-';
             indexLineWidth  = 1;
+        case 1          % Compact Nozzle
+            indexColor = 'c';
+            indexLinestyle  = '-';
+            indexLineWidth  = 3;
         case 2          % HR
             indexLinestyle = 'none';
         case 10         % with heat addition but perturbation
@@ -218,6 +222,10 @@ for s = 1:length(CI.CD.SectionIndex)
             indexLineWidth  = 3;
         case 11         % with heat addition and heat perturbations
             indexColor = 'r';
+            indexLinestyle  = '-';
+            indexLineWidth  = 3;
+        case 12          % No heat addition but heat perturbation (EWG)
+            indexColor = 'y';
             indexLinestyle  = '-';
             indexLineWidth  = 3;
     end 

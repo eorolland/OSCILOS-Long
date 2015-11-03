@@ -2,6 +2,7 @@ function Fcn_CD_plot_with_dampers(hAxes,handles,indexLegend)
 % This function is used to plot the schematic view of the combustor
 % The input are the tag of axes and handles of current gui window
 % first created: 2014-12-03
+% last modified 2015-11-03 by Erwan Rollan(eor21@cam.ac.uk)
 %
 global CI
 hFontsize2  = handles.FontSize(2);
@@ -62,6 +63,8 @@ plot(hAxes,xMax,yMax,'-b','linewidth',3)
 plot(hAxes,xMax,yMax,'-g','linewidth',3)
 plot(hAxes,xMax,yMax,'-r','linewidth',3)
 plot(hAxes,xMax,yMax,'-m','linewidth',3)
+plot(hAxes,xMax,yMax,'-y','linewidth',3)
+plot(hAxes,xMax,yMax,'-c','linewidth',3)
 %--------------------------------------
 % plot the approximate profile of the combustor which consisting of several
 % sections 
@@ -210,6 +213,10 @@ for s = 1:length(CI.CD.SectionIndex)
             indexColor = 'k';
             indexLinestyle  = '-';
             indexLineWidth  = 1;
+        case 1          % Compact Nozzle
+            indexColor = 'c';
+            indexLinestyle  = '-';
+            indexLineWidth  = 3;
         case 2          % HR
             indexLinestyle = 'none';
         case 10         % with heat addition but perturbation
@@ -218,6 +225,10 @@ for s = 1:length(CI.CD.SectionIndex)
             indexLineWidth  = 3;
         case 11         % with heat addition and heat perturbations
             indexColor = 'r';
+            indexLinestyle  = '-';
+            indexLineWidth  = 3;
+        case 12          % No heat addition but heat perturbation (EWG)
+            indexColor = 'y';
             indexLinestyle  = '-';
             indexLineWidth  = 3;
     end 
@@ -271,7 +282,7 @@ switch indexLegend
     hlegend = legend(hAxes,...
                             'inlet','outlet',...
                             legend1,...
-                            legend2);
+                            legend2, 'Entropy Wave Generator', 'Compact Nozzle');
     set(hlegend,'fontsize',hFontsize2,'location','northeastoutside');
     otherwise
 end

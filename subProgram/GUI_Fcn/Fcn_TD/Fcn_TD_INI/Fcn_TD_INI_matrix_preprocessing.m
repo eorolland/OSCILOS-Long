@@ -14,7 +14,7 @@ indexHP = 0; % index of heat perturbation. It is added by 1 in case the
 % interface is an unsteady heat source
 for ss = 1:CI.TP.numSection-1 
     switch CI.CD.SectionIndex(ss+1)
-        case 0 % case of no heat release
+        case {0,1,12} % case of no mean heat release
             CI.TD.IF.Z{ss} = Fcn_TD_matrix_reorganization_no_flame(CI.TPM.BC{ss}); 
         case 10
             indexHA = indexHA + 1;

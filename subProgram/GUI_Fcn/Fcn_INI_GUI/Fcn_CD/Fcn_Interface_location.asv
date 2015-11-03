@@ -6,7 +6,6 @@ global CI
 % last modified: 2014-12-08
 % author: Jingxuan Li (jingxuan.li@imperial.ac.uk)
 %
-disp('Running Interface Location')
 CI.CD.indexHA     = find(CI.CD.SectionIndex == 10 | CI.CD.SectionIndex == 11);           % heat addition
 CI.CD.indexHP     = find(CI.CD.SectionIndex == 11);                                      % heat perturbations
 CI.CD.indexLiner  = find(CI.CD.SectionIndex == 30);                                      % left side of a liner
