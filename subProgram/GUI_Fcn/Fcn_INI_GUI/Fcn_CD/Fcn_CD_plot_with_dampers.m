@@ -65,6 +65,7 @@ plot(hAxes,xMax,yMax,'-r','linewidth',3)
 plot(hAxes,xMax,yMax,'-m','linewidth',3)
 plot(hAxes,xMax,yMax,'-y','linewidth',3)
 plot(hAxes,xMax,yMax,'-c','linewidth',3)
+plot(hAxes,xMax,yMax,'-y','linewidth',3,'linestyle','--')
 %--------------------------------------
 % plot the approximate profile of the combustor which consisting of several
 % sections 
@@ -231,6 +232,10 @@ for s = 1:length(CI.CD.SectionIndex)
             indexColor = 'y';
             indexLinestyle  = '-';
             indexLineWidth  = 3;
+        case 40          % No heat addition but heat perturbation (EWG)
+            indexColor = 'y';
+            indexLinestyle  = '--';
+            indexLineWidth  = 3;
     end 
     if s == 1
         indexColor = 'b';   % inlet
@@ -282,7 +287,7 @@ switch indexLegend
     hlegend = legend(hAxes,...
                             'inlet','outlet',...
                             legend1,...
-                            legend2, 'Entropy Wave Generator', 'Compact Nozzle');
+                            legend2, 'Entropy Wave Generator', 'Compact Nozzle','Jump Term');
     set(hlegend,'fontsize',hFontsize2,'location','northeastoutside');
     otherwise
 end

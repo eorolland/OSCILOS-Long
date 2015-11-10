@@ -46,7 +46,8 @@ Fcn_TD_INI_external_forcing(ExtForceInfo)                                   % ex
 Fcn_TD_INI_EWG                                                             % EWG time-domain behaviour
 %
 Fcn_TD_INI_CN                                                             % Compact Nozzle time-domain behaviour
-
+%
+Fcn_TD_INI_JUMP                                                             % Jump Interface Terms transfer matrix
 assignin('base','CI',CI);
 %
 % ------------------------ end --------------------------------------------

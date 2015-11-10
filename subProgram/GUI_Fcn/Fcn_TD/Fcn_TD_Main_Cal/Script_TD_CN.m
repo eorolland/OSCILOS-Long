@@ -1,4 +1,4 @@
-Script_TD_CN
+%% Script_TD_CN
 % Makes the interface behave as a subsonic compact nozzle (simulates the
 % acoustic response of a subsonic compact nozzle to impinging acoustic and
 % entropic perturbations, based on the theory of Marble & Candel (1977))
@@ -110,4 +110,4 @@ switch CI.TD.CN.type
 end
 
 x(3,:)=y(3); % The Entropy wave is propagated
-end
+

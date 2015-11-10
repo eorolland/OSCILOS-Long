@@ -13,6 +13,7 @@ CI.CD.indexLiner  = find(CI.CD.SectionIndex == 30);                             
 CI.CD.indexHR = find(CI.CD.SectionIndex == 2);                                       % damper
 CI.CD.indexEWG = find(CI.CD.SectionIndex == 12);                                    % Entropy Wave generator
 CI.CD.indexCN = find(CI.CD.SectionIndex == 1);                                    % Compact Nozzle
+CI.CD.indexJUMP = find(CI.CD.SectionIndex == 40);                                    % Compact Nozzle
 %
 if ~isempty(CI.CD.indexHA) == 1                    % There a type of heat addition
     CI.CD.isHA = 1;                                % with heat addition
@@ -39,10 +40,17 @@ if ~isempty(CI.CD.indexEWG) == 1
 else
     CI.CD.isEWG = 0;                            % without EWG
 end
+
 if ~isempty(CI.CD.indexCN) == 1
     CI.CD.isCN = 1;                            % with EWG
 else
     CI.CD.isCN = 0;                            % without EWG
+end
+
+if ~isempty(CI.CD.indexJUMP) == 1
+    CI.CD.isJUMP = 1;                            % with EWG
+else
+    CI.CD.isJUMP = 0;                            % without EWG
 end
 %
 assignin('base','CI',CI);

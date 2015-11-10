@@ -17,7 +17,7 @@ for ss = 1:CI.TP.numSection-1
                 exp( s*tau_minus(ss)),...
                 exp(-s*tau_c(ss))]);
     switch CI.CD.SectionIndex(ss+1)
-        case {0,1,12}
+        case {0,1,12,40}
             Z       = CI.TPM.BC{ss}*D1;
         case 10
             B2b     = zeros(3);
@@ -25,7 +25,7 @@ for ss = 1:CI.TP.numSection-1
             Bsum    = CI.TPM.B1{2,ss}*(CI.TPM.B2{1,ss}\CI.TPM.B1{1,ss}) + B2b;
             BC1     = Bsum*CI.TPM.C1;
             BC2     = CI.TPM.B2{2,ss}*CI.TPM.C2;
-            Z       = (BC2\BC1)*D1;
+            Z       = (BC2\BC1)*D1;   
         case 11
             % Flame model
             FDF     = Fcn_flame_model(s);

@@ -1,7 +1,7 @@
 %% My calulation and plotting script
 set(0,'DefaultAxesXGrid','on','DefaultAxesYGrid','on')
 %for x=0:0.2:1 % Axial locations
-xarray=[-200 -90 100 1150 2100]/1000; % DLR Geometry
+xarray=[0 900 1100 2000]/1000; % DLR Geometry
 % xarray=[0 0.67 0.71 0.9 1.2];
 xnum=length(xarray);
 
@@ -9,7 +9,7 @@ xnum=length(xarray);
 clear pM uM eM PM MM
 for index=1:xnum
     x=xarray(index);
-    [pPrime, uPrime, ePrime,rhoPrime, APlus, AMinus, EPlus] = Fcn_calculate_u_p_e_rho_perturbations_at_a_give_position(x); % Calculates the fluctuations
+    [pPrime, uPrime, ePrime,rhoPrime, APlus, AMinus, EPlus, HPwave, HVwave] = Fcn_calculate_u_p_e_rho_perturbations_at_a_give_position(x); % Calculates the fluctuations
     pM(index)=max([abs(max(pPrime)) abs(min(pPrime))]);
     eM(index)=max([abs(max(ePrime)) abs(min(ePrime))]);
     uM(index)=max([abs(max(uPrime)) abs(min(uPrime))]);    
@@ -17,6 +17,8 @@ for index=1:xnum
     PM(index)=max([abs(max(APlus)) abs(min(APlus))]);
     MM(index)=max([abs(max(AMinus)) abs(min(AMinus))]);
     EM(index)=max([abs(max(EPlus)) abs(min(EPlus))]);
+    HPM(index)=max([abs(max(HPwave)) abs(min(HPwave))]);
+    HVM(index)=max([abs(max(HVwave)) abs(min(HVwave))]);
 end
 
 ylimp=[-max(pM) max(pM)];
@@ -26,6 +28,8 @@ ylimr=[-max(rM) max(rM)];
 ylimAPlus=[-max(PM) max(PM)];
 ylimAMinus=[-max(MM) max(MM)];
 ylimEPlus=[-max(EM) max(EM)];
+ylimHPwave=[-max(HPM) max(HPM)];
+ylimHVwave=[-max(HVM) max(HVM)];
 xlimit=[CI.TD.tSp(1) CI.TD.tSpTotal(end)];
 
 
@@ -34,7 +38,7 @@ for index=1:xnum
     x=xarray(index);
     
 % 1 : Calculate quantities of interest
-[pPrime, uPrime, ePrime, rhoPrime, APlus, AMinus, EPlus] = Fcn_calculate_u_p_e_rho_perturbations_at_a_give_position(x); % Calculates the fluctuations
+[pPrime, uPrime, ePrime, rhoPrime, APlus, AMinus, EPlus, HPwave, HVwave] = Fcn_calculate_u_p_e_rho_perturbations_at_a_give_position(x); % Calculates the fluctuations
 
 % 2. Plot the Waves used to calculate results
 figure(1)
@@ -42,7 +46,7 @@ hfig1=figure(1);
 set(hfig1,'Units', 'Normalized', 'OuterPosition', [0 0 1 1]); 
 set(hfig1,'color',[0.99 1 1])
 
-subplot(3,xnum,index)
+subplot(5,xnum,index)
 plot(CI.TD.tSp,EPlus,'Color','r','LineWidth',1) % Plotting the entropy wave in time
 title(strcat('Position:' , num2str(x), ' m'))
 xlabel('Time (s)')
@@ -50,7 +54,7 @@ ylabel('E Plus (Entropy Wave) (Pa)')
 ylim(ylimEPlus+[-1 1])
 xlim(xlimit)
 
-subplot(3,xnum,index+xnum)
+subplot(5,xnum,index+xnum)
 plot(CI.TD.tSp,APlus,'Color','blue','LineWidth',1) % Plotting the forward wave
 title(strcat('Position:' , num2str(x), ' m'))
 xlabel('Time (s)')
@@ -58,7 +62,7 @@ ylabel('APlus (Forward Wave) (Pa)')
 ylim(ylimAPlus+[-1 1])
 xlim(xlimit)
 
-subplot(3,xnum,index+2*xnum)
+subplot(5,xnum,index+2*xnum)
 plot(CI.TD.tSp,AMinus,'Color','blue','LineWidth',1) % Plotting the backward wave in time
 title(strcat('Position:' , num2str(x), ' m'))
 xlabel('Time (s)')
@@ -66,6 +70,21 @@ ylabel('A Minus (Backward Wave) (Pa)')
 ylim(ylimAMinus+[-1 1])
 xlim(xlimit)
 
+subplot(5,xnum,index+3*xnum)
+plot(CI.TD.tSp,HPwave,'Color','blue','LineWidth',1) % Plotting the backward wave in time
+title(strcat('Position:' , num2str(x), ' m'))
+xlabel('Time (s)')
+ylabel('HPwave (Hydrodynamic Pressure Wave) (Pa)')
+ylim(ylimHPwave+[-1 1])
+xlim(xlimit)
+
+subplot(5,xnum,index+4*xnum)
+plot(CI.TD.tSp,HVwave,'Color','blue','LineWidth',1) % Plotting the backward wave in time
+title(strcat('Position:' , num2str(x), ' m'))
+xlabel('Time (s)')
+ylabel('HVwave (Hydrodynamic Velocity Wave) (Pa)')
+ylim(ylimHVwave+[-1 1])
+xlim(xlimit)
 % 2 Plotting the results obtained from the waves
 
 figure(2)

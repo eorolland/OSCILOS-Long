@@ -654,6 +654,148 @@ set(handles.edit_EWG_ON_time,...
                         'enable','on',...
                         'visible', 'on');                                 
 %---------------------------------------- 
+% pannel Jump Interface configuration
+set(handles.uipanel_Jump_Config,...
+                        'units', 'points',...
+                        'Fontunits','points',...
+                        'position',[FigW*0.5/20 FigH*1.75/20 FigW*19/20 FigH*6/20],...
+                        'Title','',...
+                        'visible','on',...
+                        'highlightcolor',handles.bgcolor{3},...
+                        'borderwidth',1,...
+                        'fontsize',handles.FontSize(2),...
+                        'backgroundcolor',handles.bgcolor{3});  
+pannelsize=get(handles.uipanel_Jump_Config,'position');
+pW=pannelsize(3);
+pH=pannelsize(4);  
+% row 1  
+ set(handles.text_shape,...
+                         'units', 'points',...
+                         'Fontunits','points',...
+                         'position',[pW*0.25/10 pH*7/10 pW*1.5/10 pH*1.25/10],...
+                         'fontsize',handles.FontSize(2),...
+                         'string','Perturbation Type:',...
+                         'backgroundcolor',handles.bgcolor{3},...
+                         'horizontalalignment','left'); 
+ set(handles.popupmenu_shape,...
+                         'units', 'points',...
+                         'Fontunits','points',...
+                         'position',[pW*2.5/10 pH*7/10 pW*1.5/10 pH*1.25/10],...
+                         'fontsize',handles.FontSize(2),...
+                         'string',{'Pulse', 'Sinusoidal','Constant'},...
+                         'backgroundcolor',handles.bgcolor{1},...
+                         'horizontalalignment','left',...
+                         'enable','on');
+
+set(handles.text_mass,...
+                        'units', 'points',...
+                        'Fontunits','points',...
+                        'position',[pW*5.5/10 pH*7/10 pW*1.5/10 pH*1.25/10],...
+                        'fontsize',handles.FontSize(2),...
+                        'string','Added Mass Flux [-]:',...
+                        'backgroundcolor',handles.bgcolor{3},...
+                        'horizontalalignment','left'); 
+set(handles.edit_mass,...
+                        'units', 'points',...
+                        'Fontunits','points',...
+                        'position',[pW*8.25/10 pH*7/10 pW*1.5/10 pH*1.25/10],...
+                        'fontsize',handles.FontSize(2),...
+                        'string',0,...
+                        'backgroundcolor',handles.bgcolor{1},...
+                        'horizontalalignment','right',...
+                        'enable','on');     
+set(handles.text_momentum,...
+                        'units', 'points',...
+                        'Fontunits','points',...
+                        'position',[pW*5.5/10 pH*5/10 pW*3/10 pH*1.25/10],...
+                        'fontsize',handles.FontSize(2),...
+                        'string','Added Momentum Flux[-]:',...
+                        'backgroundcolor',handles.bgcolor{3},...
+                        'horizontalalignment','left'); 
+set(handles.edit_momentum,...
+                        'units', 'points',...
+                        'Fontunits','points',...
+                        'position',[pW*8.25/10 pH*5/10 pW*1.5/10 pH*1.25/10],...
+                        'fontsize',handles.FontSize(2),...
+                        'string',0,...
+                        'backgroundcolor',handles.bgcolor{1},...
+                        'horizontalalignment','right',...
+                        'enable','on');                      
+                    
+% row 2  
+set(handles.text_enthalpy,...
+                        'units', 'points',...
+                        'Fontunits','points',...
+                        'position',[pW*5.5/10 pH*3/10 pW*3/10 pH*1.25/10],...
+                        'fontsize',handles.FontSize(2),...
+                        'string','Added Enthalpy Flux [J]:',...
+                        'backgroundcolor',handles.bgcolor{3},...
+                        'horizontalalignment','left');
+set(handles.edit_enthalpy,...
+                        'units', 'points',...
+                        'Fontunits','points',...
+                        'position',[pW*8.25/10 pH*3/10 pW*1.5/10 pH*1.25/10],...
+                        'fontsize',handles.FontSize(2),...
+                        'string',13500,...
+                        'backgroundcolor',handles.bgcolor{1},...
+                        'horizontalalignment','right',...
+                        'enable','on');
+ set(handles.text_JUMP_ON_time,...
+                         'units', 'points',...
+                         'Fontunits','points',...
+                         'position',[pW*0.25/10 pH*1/10 pW*3.0/10 pH*1.25/10],...
+                         'fontsize',handles.FontSize(2),...
+                         'string','"ON" Time [s]:',...
+                         'backgroundcolor',handles.bgcolor{3},...
+                         'horizontalalignment','left',...
+                         'visible', 'on');
+ set(handles.edit_JUMP_ON_time,...
+                         'units', 'points',...
+                         'Fontunits','points',...
+                         'position',[pW*2.5/10 pH*1/10 pW*1.5/10 pH*1.25/10],...
+                         'fontsize',handles.FontSize(2),...
+                         'string',0.1,...
+                         'backgroundcolor',handles.bgcolor{1},...
+                         'horizontalalignment','right',...
+                         'enable','on',...
+                         'visible', 'on');               
+                     
+ set(handles.text_JUMP_tau,...
+                        'units', 'points',...
+                        'Fontunits','points',...
+                        'position',[pW*0.25/10 pH*3/10 pW*3/10 pH*1.25/10],...
+                        'fontsize',handles.FontSize(2),...
+                        'string','Characteristic Time Constant [s]:',...
+                        'backgroundcolor',handles.bgcolor{3},...
+                        'horizontalalignment','left');
+set(handles.edit_JUMP_tau,...
+                        'units', 'points',...
+                        'Fontunits','points',...
+                        'position',[pW*2.5/10 pH*3/10 pW*1.5/10 pH*1.25/10],...
+                        'fontsize',handles.FontSize(2),...
+                        'string',0.007,...
+                        'backgroundcolor',handles.bgcolor{1},...
+                        'horizontalalignment','right',...
+                        'enable','on');
+                    
+set(handles.text_JUMP_start_time,...
+                        'units', 'points',...
+                        'Fontunits','points',...
+                        'position',[pW*0.25/10 pH*5/10 pW*1.5/10 pH*1.25/10],...
+                        'fontsize',handles.FontSize(2),...
+                        'string','Start Time [s]:',...
+                        'backgroundcolor',handles.bgcolor{3},...
+                        'horizontalalignment','left'); 
+set(handles.edit_JUMP_start_time,...
+                        'units', 'points',...
+                        'Fontunits','points',...
+                        'position',[pW*2.5/10 pH*5/10 pW*1.5/10 pH*1.25/10],...
+                        'fontsize',handles.FontSize(2),...
+                        'string',0.1,...
+                        'backgroundcolor',handles.bgcolor{1},...
+                        'horizontalalignment','right',...
+                        'enable','on');     
+%---------------------------------------- 
 % pannel Apply OK Cancel                   
 set(handles.uipanel_OK,...
                         'units', 'points',...
@@ -1229,6 +1371,7 @@ Fcn_GUI_INI_TP_HA_UI2Para(hObject,HA_num)       % update HA parameters by the va
 %---------------------Main calculation ------------------------------------
 Fcn_GUI_INI_TP_Main_calculation(hObject)
 Fcn_GUI_INI_TP_EWG_calculation(hObject)
+Fcn_GUI_INI_TP_JUMP_calculation(hObject)
 set(handles.pb_Cal,             'enable','on');
 set(handles.pb_Plot,            'enable','on');
 set(handles.pb_saveFig,         'enable','on');
@@ -1538,6 +1681,282 @@ function edit_EWG_amp_Callback(hObject, eventdata, handles)
 % --- Executes during object creation, after setting all properties.
 function edit_EWG_amp_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to edit_EWG_amp (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function edit_enthalpy_Callback(hObject, eventdata, handles)
+% hObject    handle to edit_enthalpy (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit_enthalpy as text
+%        str2double(get(hObject,'String')) returns contents of edit_enthalpy as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit_enthalpy_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit_enthalpy (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function edit_momentum_Callback(hObject, eventdata, handles)
+% hObject    handle to edit_momentum (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit_momentum as text
+%        str2double(get(hObject,'String')) returns contents of edit_momentum as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit_momentum_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit_momentum (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function edit_mass_Callback(hObject, eventdata, handles)
+% hObject    handle to edit_mass (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit_mass as text
+%        str2double(get(hObject,'String')) returns contents of edit_mass as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit_mass_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit_mass (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function edit25_Callback(hObject, eventdata, handles)
+% hObject    handle to edit25 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit25 as text
+%        str2double(get(hObject,'String')) returns contents of edit25 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit25_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit25 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on selection change in popupmenu11.
+function popupmenu11_Callback(hObject, eventdata, handles)
+% hObject    handle to popupmenu11 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns popupmenu11 contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from popupmenu11
+
+
+% --- Executes during object creation, after setting all properties.
+function popupmenu11_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to popupmenu11 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function edit26_Callback(hObject, eventdata, handles)
+% hObject    handle to edit26 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit26 as text
+%        str2double(get(hObject,'String')) returns contents of edit26 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit26_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit26 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function edit27_Callback(hObject, eventdata, handles)
+% hObject    handle to edit27 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit27 as text
+%        str2double(get(hObject,'String')) returns contents of edit27 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit27_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit27 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function edit28_Callback(hObject, eventdata, handles)
+% hObject    handle to edit28 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit28 as text
+%        str2double(get(hObject,'String')) returns contents of edit28 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit28_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit28 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on selection change in popupmenu_shape.
+function popupmenu_shape_Callback(hObject, eventdata, handles)
+% hObject    handle to popupmenu_shape (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns popupmenu_shape contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from popupmenu_shape
+
+
+% --- Executes during object creation, after setting all properties.
+function popupmenu_shape_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to popupmenu_shape (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function edit_JUMP_start_time_Callback(hObject, eventdata, handles)
+% hObject    handle to edit_JUMP_start_time (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit_JUMP_start_time as text
+%        str2double(get(hObject,'String')) returns contents of edit_JUMP_start_time as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit_JUMP_start_time_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit_JUMP_start_time (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function edit_JUMP_tau_Callback(hObject, eventdata, handles)
+% hObject    handle to edit_JUMP_tau (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit_JUMP_tau as text
+%        str2double(get(hObject,'String')) returns contents of edit_JUMP_tau as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit_JUMP_tau_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit_JUMP_tau (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function edit_JUMP_ON_time_Callback(hObject, eventdata, handles)
+% hObject    handle to edit_JUMP_ON_time (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit_JUMP_ON_time as text
+%        str2double(get(hObject,'String')) returns contents of edit_JUMP_ON_time as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit_JUMP_ON_time_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit_JUMP_ON_time (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 

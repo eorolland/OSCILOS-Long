@@ -27,7 +27,7 @@ CI.TPM.C2 =  [      1   1   0;...
 indexHA = 0;
 for ss = 1:CI.TP.numSection-1 
     switch CI.CD.SectionIndex(ss+1)
-        case {0,1,12}
+        case {0,1,12,40}
             [B1,B2] = Fcn_Matrix_calculation_WO_Addition_effect(ss,1,1);
             CI.TPM.B1{1,ss}         = B1;               % first step
             CI.TPM.B2{1,ss}         = B2;

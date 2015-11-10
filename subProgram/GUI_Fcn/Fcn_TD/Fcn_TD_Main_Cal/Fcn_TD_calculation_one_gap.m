@@ -134,9 +134,9 @@ for ss = 1:CI.TP.numSection-1
             end
         case 12 % Entropy Wave Generator, no mean heat addition
                 % Acoustic and entropic waves are generated
-                
-            run Script_TD_EWG % This script calculates AP, AM and E due to an entropy wave generator
-            
+               run Script_TD_EWG % This script calculates AP, AM and E due to an entropy wave generator
+        case 40
+              run Script_TD_JUMP
     end
     
     
@@ -144,7 +144,6 @@ for ss = 1:CI.TP.numSection-1
     CI.TD.AP(ss+1,Var(1):Var(2)) = x(1,:);
     CI.TD.AM(ss  ,Var(1):Var(2)) = x(2,:);
     CI.TD.E(ss+1  ,Var(1):Var(2)) = x(3,:);
-    
     
 
     

@@ -9,6 +9,8 @@ global CI
 CI.TD.AP                = zeros(CI.TP.numSection,CI.TD.nTotal);             % Downward acoustic waves
 CI.TD.AM                = zeros(CI.TP.numSection,CI.TD.nTotal);             % Upward acoustic waves
 CI.TD.E                 = zeros(CI.TP.numSection,CI.TD.nTotal);             % Entropy waves
+CI.TD.HP                = zeros(CI.TP.numSection,CI.TD.nTotal);             % Convected hydrodynamic pressure wave
+CI.TD.HV                = zeros(CI.TP.numSection,CI.TD.nTotal);             % Convected hydrodynamic velocity wave
 %
 if ~isempty(CI.CD.indexHP)    % if there are heat perturbations                   
     numHP                   = length(CI.CD.indexHP);                                % number of heat perturbations

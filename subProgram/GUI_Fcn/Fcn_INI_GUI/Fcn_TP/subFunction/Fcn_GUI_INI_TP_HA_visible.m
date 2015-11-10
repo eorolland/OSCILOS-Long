@@ -23,6 +23,13 @@ switch CI.CD.isEWG
     case 1
         set(handles.uipanel_EWG_Config,    'visible', 'on');
 end
+
+switch CI.CD.isJUMP
+        case 0 
+        set(handles.uipanel_Jump_Config,    'visible', 'off');
+    case 1
+        set(handles.uipanel_Jump_Config,    'visible', 'on');
+end
 guidata(hObject, handles);
 %
 % -----------------------------end-----------------------------------------

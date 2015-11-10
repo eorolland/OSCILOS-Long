@@ -28,7 +28,7 @@ for ss = 1:CI.TP.numSection-1
                 exp( s_star*tau_minus(ss)),...
                 exp(-s_star*tau_c(ss))]);
     switch CI.CD.SectionIndex(ss+1)
-        case {0,1,12}
+        case {0,1,12,40}
             CI.TPM.Z{ss}       = CI.TPM.BC{ss}*D1;
         case 10
             indexHA = indexHA + 1;

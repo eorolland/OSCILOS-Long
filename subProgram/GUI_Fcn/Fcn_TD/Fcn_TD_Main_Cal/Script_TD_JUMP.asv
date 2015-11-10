@@ -1,0 +1,32 @@
+%% Script_TD_JUMP
+
+% Created 2015-11-03 by Erwan Rollan(eor21@cam.ac.uk)
+
+
+% Determining mean flow variables
+c1  = CI.TP.c_mean(2,ss);
+c2  = CI.TP.c_mean(1,ss);
+M1      = CI.TP.M_mean(2,ss);
+M2      = CI.TP.M_mean(1,ss);
+gamma1  = CI.TP.gamma(2,ss);
+gamma2  = CI.TP.gamma(1,ss);
+p2=CI.TP.p_mean(1,ss)
+rho2=CI.TP.rho_mean(1,ss)
+T2=CI.TP.T_mean(1,ss);
+Cp=CI.TP.Cp(1,ss);
+u2=CI.TP.u_mean(1,ss);
+H2=Cp*T2+0.5*u2*u2;
+
+%% Determining the jump terms required
+% Euler Equation 1: Mass
+MassTerm=0; %Must be divided by rho*u wrt to Euler eqs.
+% Euler Equation 2: Momentum
+MomentumTerm=0; %Must be divided by rho*u^2 wrt to Euler eqs.
+% Euler Equation 3: Energy
+EnthalpyTerm= CI.TD.JUMP.enthalpyprofile(Var(1)); %Must be divided by rho*u wrt to Euler eqs.
+
+% Additional term in matrix form
+FTerm      =[MassTerm; MomentumTerm; EnthalpyTerm]; % This is the additional term (scaled)
+CI.TEMP.MyFTerm=[MassTerm; MomentumTerm; EnthalpyTerm];
+
+x = 

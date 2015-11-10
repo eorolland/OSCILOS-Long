@@ -97,7 +97,7 @@ for ss = 1:CI.TP.numSection-1
     % --------------step 2-------------------------
     %
     switch CI.CD.SectionIndex(ss+1)
-        case {0,1,12}
+        case {0,1,12,40}
             % in case 0, no changes
         case {10,11}                                    % with HA
             indexHA_num = indexHA_num + 1;              % this number is increased by 1
